@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "dado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Dado.findAll", query = "SELECT d FROM Dado d ORDER BY d.sensor"),
+    //@NamedQuery(name = "Dado.findAll", query="SELECT sub FROM(SELECT d FROM dado d ORDER BY d.tempo desc, d.sensor LIMIT 20) ORDER by tempo asc"),
+    @NamedQuery(name = "Dado.findAll", query = "SELECT d FROM Dado d ORDER BY d.tempo desc, d.sensor"),
+    //@NamedQuery(name = "Dado.findAll", query = "SELECT d FROM Dado d ORDER BY d.sensor"),
     @NamedQuery(name = "Dado.findByIdDado", query = "SELECT d FROM Dado d WHERE d.idDado = :idDado"),
     @NamedQuery(name = "Dado.findBySensor", query = "SELECT d FROM Dado d WHERE d.sensor = :sensor"),
     @NamedQuery(name = "Dado.findByValor", query = "SELECT d FROM Dado d WHERE d.valor = :valor"),

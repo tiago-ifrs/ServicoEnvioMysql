@@ -84,9 +84,13 @@ public class DadoFacadeREST extends AbstractFacade<Dado> {
     @Override
     @Produces({"application/json"})
     public List<Dado> findAll() {
-        return super.findAll();
+        //return super.findAll();
+        List<Dado> d = em.createNamedQuery("Dado.findAll")
+                .setMaxResults(10)
+                .getResultList();
+        return d;
     }
-/*
+
     @POST
     @Consumes({"application/json"})
     @Produces({TEXT_PLAIN})
@@ -123,7 +127,7 @@ public class DadoFacadeREST extends AbstractFacade<Dado> {
         }
         return null;
     }
-*/
+/*
     @POST
     @Consumes({"application/json"})
     @Produces({TEXT_PLAIN})
@@ -165,7 +169,7 @@ public class DadoFacadeREST extends AbstractFacade<Dado> {
         }
         return retorno;
     }
-
+*/
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
