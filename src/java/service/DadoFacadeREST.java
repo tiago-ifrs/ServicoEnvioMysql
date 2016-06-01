@@ -13,9 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -84,11 +82,13 @@ public class DadoFacadeREST extends AbstractFacade<Dado> {
     @Override
     @Produces({"application/json"})
     public List<Dado> findAll() {
-        //return super.findAll();
+        return super.findAll();
+        /*
         List<Dado> d = em.createNamedQuery("Dado.findAll")
                 .setMaxResults(10)
                 .getResultList();
         return d;
+        */
     }
 
     @POST
@@ -107,7 +107,9 @@ public class DadoFacadeREST extends AbstractFacade<Dado> {
                 md.update(dadoJson.getBytes());
                 BigInteger hashInt = new BigInteger(1, md.digest());
 
-                String hashGerada = hashInt.toString(16);
+                //String hashGerada = hashInt.toString(16);
+                //a comparação falha por causa dos zeros à esquerda
+                String hashGerada = String.format("%032x", hashInt);
                 if (entity.getHash().equals(hashGerada)) {
                     if (entity.getTempo() == null) {
                         Calendar calendar = Calendar.getInstance();
