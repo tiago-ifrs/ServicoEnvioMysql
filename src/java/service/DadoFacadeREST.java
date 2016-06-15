@@ -90,6 +90,16 @@ public class DadoFacadeREST extends AbstractFacade<Dado> {
         return d;
         */
     }
+    
+    @GET
+    @Path("/idLeitura/{id}")
+    @Produces({"application/json"})
+    public List<Dado> findByIdLeitura(@PathParam("id") Integer id) {      
+        List<Dado> d = em.createNamedQuery("Dado.findByIdLeitura")
+                .setParameter("idLeitura", id)
+                .getResultList();
+        return d;
+    }
 
     @POST
     @Consumes({"application/json"})
